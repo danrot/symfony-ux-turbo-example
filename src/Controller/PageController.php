@@ -8,9 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PageController extends AbstractController
 {
-    public function about(): Response
+    public function about(Request $request): Response
     {
-        return $this->render('about.html.twig');
+        return $this->renderForTurbo($request, 'about.html.twig', []);
     }
 
     public function form(Request $request): Response
@@ -35,13 +35,22 @@ class PageController extends AbstractController
             return $this->redirectToRoute('form_success', ['task' => $task['task']]);
         }
 
-        return $this->render('form.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->renderForTurbo($request, 'form.html.twig', ['form' => $form->createView()]);
     }
 
     public function formSuccess(Request $request): Response
     {
-        return $this->render('form_success.html.twig', ['task' => $request->query->get('task')]);
+        return $this->renderForTurbo($request, 'form_success.html.twig', ['task' => $request->query->get('task')]);
+    }
+
+    private function renderForTurbo(Request $request, string $template, array $parameters)
+    {
+        if ($request->headers->get('Turbo-Frame') === 'content') {
+            $template = $this->get('twig')->load($template);
+
+            return new Response($template->renderBlock('content', $parameters));
+        }
+
+        return $this->render($template, $parameters);
     }
 }
