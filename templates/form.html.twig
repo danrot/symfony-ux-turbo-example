@@ -1,6 +1,8 @@
 {% extends "base.html.twig" %}
 
 {% block content %}
-<h1>Form</h1>
-{{ form(form) }}
+<turbo-frame id="content">
+    <h1>Form</h1>
+    {{ form(form) }}
+</turbo-frame>
 {% endblock %}

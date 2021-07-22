@@ -15,8 +15,8 @@
     </head>
     <body>
         <nav>
-            <a href="{{ path('about') }}">About</a>
-            <a href="{{ path('form') }}">Form</a>
+            <a href="{{ path('about') }}" data-turbo-frame="content">About</a>
+            <a href="{{ path('form') }}" data-turbo-frame="content">Form</a>
         </nav>
         {% block content %}{% endblock %}
     </body>
