@@ -1,0 +1,11 @@
+about:
+    path: /about
+    controller: App\Controller\PageController::about
+
+form:
+    path: /form
+    controller: App\Controller\PageController::form
+
+form_success:
+    path: /form-success
+    controller: App\Controller\PageController::formSuccess
